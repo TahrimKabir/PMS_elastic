@@ -1,0 +1,128 @@
+.container-full {
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (max-width: 416px) {
+  .container-full {
+    width: auto;
+  }
+}
+.container-full .container-header {
+  top: 0;
+  box-shadow: 0 5px 5px rgb(224, 218, 218);
+  display: block;
+  background-color: rgb(226, 234, 234);
+  padding: 1rem;
+}
+@media screen and (max-width: 768px) {
+  .container-full .container-header {
+    display: flex;
+    justify-content: center;
+    width: auto;
+  }
+}
+.container-full .container-row {
+  width: 90%;
+  margin-top: 3vh;
+  display: flex;
+  justify-content: center;
+}
+@media screen and (max-width: 768px) {
+  .container-full .container-row {
+    flex-direction: column;
+    width: auto;
+  }
+}
+@media screen and (max-width: 416px) {
+  .container-full .container-row {
+    width: 100%;
+  }
+}
+.container-full .container-row img {
+  height: 450px;
+  width: 400px;
+}
+.container-full .container-row .profile-image {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+}
+@media screen and (max-width: 768px) {
+  .container-full .container-row .profile-image {
+    justify-content: center;
+    width: 100%;
+  }
+}
+.container-full .container-row .register {
+  padding: 4rem;
+  width: 50%;
+}
+@media screen and (max-width: 768px) {
+  .container-full .container-row .register {
+    width: 100%;
+    padding: 0;
+  }
+}
+.container-full .container-row .register .clr-blue {
+  color: rgb(106, 99, 180);
+}
+.container-full .container-row .register .clr-dblue {
+  color: rgb(112, 102, 216);
+}
+.container-full .container-row .register .clr-d1blue {
+  color: rgb(102, 90, 240);
+}
+.container-full .container-row .register .rf {
+  width: 100%;
+  margin-bottom: 7vh;
+}
+.container-full .container-row .register .rf h1 {
+  font-size: 32px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+.container-full .container-row .register .rf-input {
+  width: 100%;
+  display: flex;
+  margin-bottom: 15px;
+  justify-content: center;
+}
+.container-full .container-row .register .punit {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0.2rem;
+}
+.container-full .container-row .register .punit input {
+  width: 100%;
+  padding: 0.55rem;
+  border: 2px solid rgb(125, 125, 171);
+  border-radius: 4px;
+}
+.container-full .container-row .register .punit button {
+  padding: 0.55rem;
+  color: rgb(212, 236, 237);
+  background: linear-gradient(#977fec, #5b1be3);
+  border: none;
+  border-radius: 4px;
+}
+.container-full .container-row .register .p1, .container-full .container-row .register .p2 {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  padding: 0.2rem;
+}
+.container-full .container-row .register .p1 input, .container-full .container-row .register .p2 input {
+  width: 100%;
+  padding: 0.55rem;
+  border: 2px solid rgb(125, 125, 171);
+  border-radius: 4px;
+}
+@media screen and (max-width: 768px) {
+  .container-full .container-row {
+    flex-direction: column;
+  }
+}/*# sourceMappingURL=index.css.map */
