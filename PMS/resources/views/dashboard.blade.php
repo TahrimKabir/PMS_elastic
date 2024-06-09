@@ -30,9 +30,11 @@
                     </div>
                 </div>
                 <div class="postbar">
-                    <form action="" method="post">
+                    <button id="add" style="display: block;">post here</button>
+                    
+           
                         <div class="post">
-                            <button id="add" style="display: block;">post here</button>
+                            
                             <form action="{{route('post')}}" method="post" style="display: none;" id="form">
                                 @csrf
                                 <input type="hidden" name="email" value="{{ session('user')['email'] }}">
@@ -43,7 +45,7 @@
                             </form>
 
                         </div>
-                    </form>
+                    
                     <div class="post">
                         hi
                     </div>
@@ -60,6 +62,7 @@
 addButton.addEventListener('click', function() {
     
     document.getElementById('form').style.display='block';
+    
     
 });
     </script>
