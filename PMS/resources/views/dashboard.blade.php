@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,28 +8,61 @@
     <link rel="stylesheet" href="scss/reset.css">
     <link rel="stylesheet" href="scss/dashboard.css">
 </head>
+
 <body>
-    <div class="container-full" >
-    <div class="container-header" >
-     hi
-    </div>
-    <div class="container-row">
-        <div class="container-center">
-            <div class="sidebar">
-             <div class="sidebar-main">
-              <img src="" alt="">
-             </div>
-            </div>
-            <div class="postbar">
-              <div class="post">
-              hi
-              </div>
-              <div class="post">
-              hi
-              </div>
+    <div class="container-full">
+        <div class="container-header" style="display: flex;">
+            @if(session()->has('user'))
+            <!-- Accessing session data using the session() helper function -->
+            <!-- <p>User Email: {{ session('user')['email'] }}</p> -->
+            <p>logged in as <span style="color: white;">{{ session('user')['name'] }}</span></p>
+            @endif
+            <form action="{{route('logout')}}" method="POST">
+                @csrf
+                <button>logout</button>
+            </form>
+        </div>
+        <div class="container-row">
+            <div class="container-center">
+                <div class="sidebar">
+                    <div class="sidebar-main">
+                        <img src="" alt="">
+                    </div>
+                </div>
+                <div class="postbar">
+                    <form action="" method="post">
+                        <div class="post">
+                            <button id="add" style="display: block;">post here</button>
+                            <form action="{{route('post')}}" method="post" style="display: none;" id="form">
+                                @csrf
+                                <input type="hidden" name="email" value="{{ session('user')['email'] }}">
+                                <textarea name="post" id="" rows="10">
+
+                                 </textarea>
+                                <button>post</button>
+                            </form>
+
+                        </div>
+                    </form>
+                    <div class="post">
+                        hi
+                    </div>
+                    <div class="post">
+                        hi
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    </div>
+    <script>
+        var addButton = document.getElementById('add');
+
+addButton.addEventListener('click', function() {
+    
+    document.getElementById('form').style.display='block';
+    
+});
+    </script>
 </body>
+
 </html>

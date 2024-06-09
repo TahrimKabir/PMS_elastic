@@ -63,4 +63,7 @@
   box-shadow: 10px 10px 5px -6px rgb(155, 155, 157);
   border-radius: 6px;
   border: 1px solid rgb(202, 202, 248);
+}
+.post textarea {
+  width: 100%;
 }/*# sourceMappingURL=dashboard.css.map */

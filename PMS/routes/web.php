@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +15,13 @@ use App\Http\Controllers\RegisterController;
 |
 */
 Route::get('/',[RegisterController::class,'index']);
+Route::get('/dashboard',[DashboardController::class,'index']);
 Route::post('/registered',[RegisterController::class,'store'])->name('store');
+
+Route::get('/login',[LoginController::class,'index']);
+Route::post('/login-done',[LoginController::class,'login'])->name('login');
+Route::post('/logout',[LoginController::class,'logout'])->name('logout');
+Route::post('/post-done',[DashboardController::class,'post'])->name('post');
 // Route::get('/', function () {
 //     return view('welcome');
 // });
