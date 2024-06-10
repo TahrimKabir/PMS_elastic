@@ -31,27 +31,27 @@
                 </div>
                 <div class="postbar">
                     <button id="add" style="display: block;">post here</button>
-                    
-           
-                        <div class="post">
-                            
-                            <form action="{{route('post')}}" method="post" style="display: none;" id="form">
-                                @csrf
-                                <input type="hidden" name="email" value="{{ session('user')['email'] }}">
-                                <textarea name="post" id="" rows="10">
+
+
+                    <div class="post">
+
+                        <form action="{{route('post')}}" method="post" style="display: none;" id="form">
+                            @csrf
+                            <input type="hidden" name="email" value="{{ session('user')['email'] }}">
+                            <textarea name="post" id="" rows="10">
 
                                  </textarea>
-                                <button>post</button>
-                            </form>
+                            <button>post</button>
+                        </form>
 
-                        </div>
-                    
-                    <div class="post">
-                        hi
                     </div>
+
+                    @foreach ($posts as $post)
                     <div class="post">
-                        hi
+                        {{$post['email']}} 
+                        <p>{{$post['post']}}</p>
                     </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -59,12 +59,12 @@
     <script>
         var addButton = document.getElementById('add');
 
-addButton.addEventListener('click', function() {
-    
-    document.getElementById('form').style.display='block';
-    
-    
-});
+        addButton.addEventListener('click', function() {
+
+            document.getElementById('form').style.display = 'block';
+
+
+        });
     </script>
 </body>
 
