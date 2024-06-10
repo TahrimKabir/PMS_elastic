@@ -22,6 +22,9 @@ Route::get('/login',[LoginController::class,'index']);
 Route::post('/login-done',[LoginController::class,'login'])->name('login');
 Route::post('/logout',[LoginController::class,'logout'])->name('logout');
 Route::post('/post-done',[DashboardController::class,'post'])->name('post');
+Route::get('/edit/{email}', [DashboardController::class, 'edit'])->name('editUser');
+Route::post('/update-user', [DashboardController::class, 'update'])->name('updateUser');
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
