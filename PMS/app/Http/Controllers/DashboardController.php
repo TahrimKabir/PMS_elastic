@@ -108,9 +108,10 @@ class DashboardController extends Controller
         // Prepare the update query
         $updateQuery = [
             'script' => [
-                'source' => 'ctx._source.name = params.name',
+                'source' => 'ctx._source.name = params.name','ctx._source.password = params.password',
                 'params' => [
                     'name' => $request->name,
+                    'password' => Hash::make($request->password),
                     // Add more fields to update if necessary
                 ]
             ],
@@ -132,4 +133,32 @@ class DashboardController extends Controller
             return redirect('/dashboard')->with('error', 'Failed to update user');
         }
     }
+
+    public function delete($email)
+{
+    $url = 'http://localhost:9200/users/_delete_by_query';
+    $username = 'elastic';
+    $password = 'elastic';
+
+    // Prepare the delete query
+    $deleteQuery = [
+        'query' => [
+            'term' => [
+                'email.keyword' => $email
+            ]
+        ]
+    ];
+
+
+    $response = Http::withBasicAuth($username, $password)
+        ->post($url, $deleteQuery);
+
+    
+    if ($response->successful()) {
+        return redirect('/dashboard')->with('message', 'User deleted successfully');
+    } else {
+        return redirect('/dashboard')->with('error', 'Failed to delete user');
+    }
+}
+
 }

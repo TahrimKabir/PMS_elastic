@@ -24,6 +24,7 @@ Route::post('/logout',[LoginController::class,'logout'])->name('logout');
 Route::post('/post-done',[DashboardController::class,'post'])->name('post');
 Route::get('/edit/{email}', [DashboardController::class, 'edit'])->name('editUser');
 Route::post('/update-user', [DashboardController::class, 'update'])->name('updateUser');
+Route::get('/delete/{email}',[DashboardController::class,'delete'])->name('delete');
 
 // Route::get('/', function () {
 //     return view('welcome');

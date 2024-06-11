@@ -12,7 +12,7 @@ class RegisterController extends Controller
     {
         return view('index');
     }
-
+   
     // public function store(Request $request){
     //     $validator = Validator::make($request->all(), [
     //         'fname' => 'required|string',

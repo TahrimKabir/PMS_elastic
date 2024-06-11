@@ -21,7 +21,9 @@
                 @csrf
                 <button>logout</button>
             </form>
+            
             <a href="{{asset('edit/'.session('user')['email'])}}">Edit</a>
+            <a href="{{asset('delete/'.session('user')['email'])}}">Delete</a>
         </div>
         <div class="container-row">
             <div class="container-center">
