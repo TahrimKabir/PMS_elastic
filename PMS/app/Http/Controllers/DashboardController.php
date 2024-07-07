@@ -99,16 +99,50 @@ class DashboardController extends Controller
         }
     }
 
+    // public function update(Request $request)
+    // {
+    //     $url = 'http://localhost:9200/users/_update_by_query';
+    //     $username = 'elastic';
+    //     $password = 'elastic';
+
+    //     // Prepare the update query
+    //     $updateQuery = [
+    //         'script' => [
+    //             'source' => 'ctx._source.name = params.name','ctx._source.password = params.password',
+    //             'params' => [
+    //                 'name' => $request->name,
+    //                 'password' => Hash::make($request->password),
+    //                 // Add more fields to update if necessary
+    //             ]
+    //         ],
+    //         'query' => [
+    //             'term' => [
+    //                 'email.keyword' => $request->email
+    //             ]
+    //         ]
+    //     ];
+
+    //     // Send the update request
+    //     $response = Http::withBasicAuth($username, $password)
+    //         ->post($url, $updateQuery);
+
+    //     // Check if the update was successful
+    //     if ($response->successful()) {
+    //         return redirect('/dashboard')->with('message', 'User updated successfully');
+    //     } else {
+    //         return redirect('/dashboard')->with('error', 'Failed to update user');
+    //     }
+    // }
     public function update(Request $request)
     {
         $url = 'http://localhost:9200/users/_update_by_query';
         $username = 'elastic';
         $password = 'elastic';
-
+    
         // Prepare the update query
         $updateQuery = [
             'script' => [
-                'source' => 'ctx._source.name = params.name','ctx._source.password = params.password',
+                'source' => 'ctx._source.name = params.name; ctx._source.password = params.password;',
                 'params' => [
                     'name' => $request->name,
                     'password' => Hash::make($request->password),
@@ -121,19 +155,20 @@ class DashboardController extends Controller
                 ]
             ]
         ];
-
+    
         // Send the update request
         $response = Http::withBasicAuth($username, $password)
             ->post($url, $updateQuery);
-
+    
         // Check if the update was successful
         if ($response->successful()) {
+            
             return redirect('/dashboard')->with('message', 'User updated successfully');
         } else {
             return redirect('/dashboard')->with('error', 'Failed to update user');
         }
     }
-
+    
     public function delete($email)
 {
     $url = 'http://localhost:9200/users/_delete_by_query';
@@ -155,7 +190,7 @@ class DashboardController extends Controller
 
     
     if ($response->successful()) {
-        return redirect('/dashboard')->with('message', 'User deleted successfully');
+        return response()->json("user deleted successfully");
     } else {
         return redirect('/dashboard')->with('error', 'Failed to delete user');
     }

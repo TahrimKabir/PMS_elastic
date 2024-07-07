@@ -118,10 +118,11 @@ class RegisterController extends Controller
 
         // Return the response from Elasticsearch
         if ($createResponse->successful()) {
-            return response()->json([
-                'message' => 'User created successfully in Elasticsearch',
-                'data' => $createResponse->json()
-            ], 201);
+            // return response()->json([
+            //     'message' => 'User created successfully in Elasticsearch',
+            //     'data' => $createResponse->json()
+            // ], 201);
+            return redirect('/login');
         } else {
             return response()->json([
                 'message' => 'Failed to create user in Elasticsearch',

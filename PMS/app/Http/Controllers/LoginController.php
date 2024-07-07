@@ -16,12 +16,55 @@ class LoginController extends Controller
         return view('login');
     }
 
+    // public function login(Request $request)
+    // {
+    //     $url = 'http://localhost:9200/users/_search';
+    //     $username = 'elastic';
+    //     $password = 'elastic';
+
+    //     // Search for the user by email
+    //     $searchQuery = [
+    //         'query' => [
+    //             'term' => [
+    //                 'email.keyword' => $request->email
+    //             ]
+    //         ]
+    //     ];
+
+    //     $searchResponse = Http::withOptions(['verify' => false])
+    //         ->withBasicAuth($username, $password)
+    //         ->post($url, $searchQuery);
+        
+    //     // Check if the search was successful and if the user exists
+    //     if ($searchResponse->successful() && !empty($searchResponse['hits']['hits'])) {
+    //         $user = $searchResponse['hits']['hits'][0]['_source'];
+
+    //         // Verify the password
+    //         if (Hash::check($request->password, $user['password'])) {
+    //             // Password matches, return success response
+    //             $data = array('email' => $request->email, 'name' => $user['name']);
+    //             session()->put('user', $data);
+    //             return redirect('/dashboard');
+    //         } else {
+    //             // Password does not match
+    //             return response()->json([
+    //                 'message' => 'Invalid credentials'
+    //             ], 401);
+    //         }
+    //     } else {
+    //         // User not found or search failed
+    //         return response()->json([
+    //             'message' => 'User not found or search failed'
+    //         ], 404);
+    //     }
+    // }
     public function login(Request $request)
     {
-        $url = 'http://localhost:9200/users/_search';
+        $elasticsearchHost = 'http://localhost:9200'; // Ensure this is accessible from the other PC
+        $url = $elasticsearchHost . '/users/_search';
         $username = 'elastic';
         $password = 'elastic';
-
+    
         // Search for the user by email
         $searchQuery = [
             'query' => [
@@ -30,35 +73,43 @@ class LoginController extends Controller
                 ]
             ]
         ];
-
-        $searchResponse = Http::withOptions(['verify' => false])
-            ->withBasicAuth($username, $password)
-            ->post($url, $searchQuery);
-
-        // Check if the search was successful and if the user exists
-        if ($searchResponse->successful() && !empty($searchResponse['hits']['hits'])) {
-            $user = $searchResponse['hits']['hits'][0]['_source'];
-
-            // Verify the password
-            if (Hash::check($request->password, $user['password'])) {
-                // Password matches, return success response
-                $data = array('email' => $request->email, 'name' => $user['name']);
-                session()->put('user', $data);
-                return redirect('/dashboard');
+    
+        try {
+            // Send HTTP request with Basic Authentication
+            $searchResponse = Http::withOptions(['verify' => false])
+                ->withBasicAuth($username, $password)
+                ->post($url, $searchQuery);
+    
+            // Check if the search was successful and if the user exists
+            if ($searchResponse->successful() && !empty($searchResponse['hits']['hits'])) {
+                $user = $searchResponse['hits']['hits'][0]['_source'];
+    
+                // Verify the password
+                if (Hash::check($request->password, $user['password'])) {
+                    // Password matches, return success response
+                    $data = ['email' => $request->email, 'name' => $user['name']];
+                    session()->put('user', $data);
+                    return redirect('/dashboard');
+                } else {
+                    // Password does not match
+                    return response()->json([
+                        'message' => 'Invalid credentials'
+                    ], 401);
+                }
             } else {
-                // Password does not match
+                // User not found or search failed
                 return response()->json([
-                    'message' => 'Invalid credentials'
-                ], 401);
+                    'message' => 'User not found or search failed'
+                ], 404);
             }
-        } else {
-            // User not found or search failed
+        } catch (\Exception $e) {
+            // Handle any exceptions during the HTTP request
             return response()->json([
-                'message' => 'User not found or search failed'
-            ], 404);
+                'message' => 'An error occurred: ' . $e->getMessage()
+            ], 500);
         }
     }
-
+    
     public function logout(Request $request){
         Session::flush();
         return redirect('/login');
