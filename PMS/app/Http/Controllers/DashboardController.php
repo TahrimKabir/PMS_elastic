@@ -190,7 +190,8 @@ class DashboardController extends Controller
 
     
     if ($response->successful()) {
-        return response()->json("user deleted successfully");
+        // return response()->json("user deleted successfully");
+        return redirect('/user-list');
     } else {
         return redirect('/dashboard')->with('error', 'Failed to delete user');
     }
