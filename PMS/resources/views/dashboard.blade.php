@@ -11,26 +11,13 @@
 
 <body>
     <div class="container-full">
-        <div class="container-header" style="display: flex;">
-            @if(session()->has('user'))
-            <!-- Accessing session data using the session() helper function -->
-            <!-- <p>User Email: {{ session('user')['email'] }}</p> -->
-            <p>logged in as <span style="color: white;">{{ session('user')['name'] }}</span></p>
-            @endif
-            <form action="{{route('logout')}}" method="POST">
-                @csrf
-                <button>logout</button>
-            </form>
-            
-            <a href="{{asset('edit/'.session('user')['email'])}}">Edit</a>
-            <a href="{{asset('delete/'.session('user')['email'])}}">Delete</a>
-        </div>
+        @include('topbar')
         <div class="container-row">
             <div class="container-center">
                 <div class="sidebar">
-                    <div class="sidebar-main">
-                        <img src="" alt="">
-                    </div>
+                @include('sidebar_main')
+
+
                 </div>
                 <div class="postbar">
                     <button id="add" style="display: block;">post here</button>
@@ -51,7 +38,7 @@
 
                     @foreach ($posts as $post)
                     <div class="post">
-                        {{$post['email']}} 
+                        {{$post['email']}}
                         <p>{{$post['post']}}</p>
                     </div>
                     @endforeach

@@ -11,17 +11,7 @@
 
 <body>
     <div class="container-full">
-        <div class="container-header">
-        @if(session()->has('user'))
-            <!-- Accessing session data using the session() helper function -->
-            <!-- <p>User Email: {{ session('user')['email'] }}</p> -->
-            <p>logged in as <span style="color: white;">{{ session('user')['name'] }}</span></p>
-            @endif
-            <form action="{{route('logout')}}" method="POST">
-                @csrf
-                <button>logout</button>
-            </form>
-        </div>
+    @include('topbar')
         <div class="container-row">
             <div class="profile-image">
                 <img src="{{asset('images/profile1.jpg')}}" alt="">

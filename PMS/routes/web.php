@@ -27,6 +27,8 @@ Route::get('/edit/{email}', [DashboardController::class, 'edit'])->name('editUse
 Route::post('/update-user', [DashboardController::class, 'update'])->name('updateUser');
 Route::get('/delete/{email}',[DashboardController::class,'delete'])->name('delete');
 Route::get('/user-list',[UserController::class,'index'])->name('user-list');
+
+Route::get('/create-admin',[UserController::class,'createAdmin'])->name('createAdmin');
 // Route::get('/', function () {
 //     return view('welcome');
 // });
